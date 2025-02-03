@@ -1,0 +1,17 @@
+server {
+	server_name ml.musicstudy.uk;
+
+	location = /favicon.ico {access_log off; log_not_found off; }
+	
+	if ($http_host !~* ^(ml.musicstudy.uk)$ ) {
+		return 444;
+	}
+	location / {
+		include proxy_params;
+		proxy_pass http://unix:/run/fastapi.sock;
+		proxy_connect_timeout 300;
+		proxy_send_timeout 300;
+		proxy_read_timeout 300;
+		send_timeout 300;
+	}
+}

@@ -1,0 +1,13 @@
+[Unit]
+Description=fastapi fatigue ml server
+Requires=fastapi.socket
+After=network.target
+
+[Service]
+User=fastapi
+Group=fastapi
+WorkingDirectory=/home/fastapi/fatigue_ml_prod
+ExecStart=/home/fastapi/fatigue_ml_prod/venv/bin/fastapi run main.py
+
+[Install]
+WantedBy=multi-user.target

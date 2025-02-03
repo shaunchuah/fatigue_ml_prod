@@ -1,0 +1,8 @@
+[Unit]
+Description=fastapi socket
+
+[Socket]
+ListenStream=/run/fastapi.sock
+
+[Install]
+WantedBy=sockets.target
