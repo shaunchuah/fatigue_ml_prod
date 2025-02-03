@@ -29,10 +29,10 @@ jobs:
         run: ssh deploy 'cd ${{ secrets.INSTALLATION_DIRECTORY }} && git pull'
 
       - name: Make deployment script executable
-        run: ssh deploy 'chmod +x ${{ secrets.INSTALLATION_DIRECTORY }}/scripts/github_deploy_fastapi.sh'
+        run: ssh deploy 'chmod +x ${{ secrets.INSTALLATION_DIRECTORY }}/deployment/github_deploy_fastapi.sh'
 
-      - name: Run django deployment script
-        run: ssh deploy '${{ secrets.INSTALLATION_DIRECTORY }}/scripts/github_deploy_fastapi.sh'
+      - name: Run deployment script
+        run: ssh deploy '${{ secrets.INSTALLATION_DIRECTORY }}/deployment/github_deploy_fastapi.sh'
 
       - name: Restart fastapi systemd service
         run: ssh deploy 'sudo systemctl restart fastapi'
