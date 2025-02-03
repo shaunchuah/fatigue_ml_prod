@@ -10,8 +10,8 @@ import pandas as pd
 import shap
 from joblib import load
 
-from .constants import NUMERICAL_FEATURES
-from .models import Input
+from src.constants import NUMERICAL_FEATURES
+from src.models import Input
 
 
 def calculate_bmi(height: float, weight: float) -> float:

@@ -7,7 +7,15 @@ After=network.target
 User=fastapi
 Group=fastapi
 WorkingDirectory=/home/fastapi/fatigue_ml_prod
-ExecStart=/home/fastapi/fatigue_ml_prod/venv/bin/fastapi run main.py
+ExecStart=/home/fastapi/fatigue_ml_prod/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 2 \
+          -k uvicorn.workers.UvicornWorker \
+          --bind unix:/run/fastapi.sock \
+          main:app
+Restart=on-failure
+RestartSec=5s
+
 
 [Install]
 WantedBy=multi-user.target

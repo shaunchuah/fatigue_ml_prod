@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from .models import Input
-from .utils import (
+from src.models import Input
+from src.utils import (
     format_input_data,
     generate_force_plot,
     load_ml_resources,
@@ -52,3 +52,9 @@ def predict_fatigue(input: Input):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)
