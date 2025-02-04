@@ -1,0 +1,7 @@
+[project]
+name = "fatigue_ml_prod"
+version = "0.1"
+authors = [{name="Shaun Chuah", email="shaun.chuah@glasgow.ac.uk"}]
+
+[tool.pytest.ini_options]
+addopts = "--disable-warnings"

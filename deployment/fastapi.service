@@ -12,7 +12,7 @@ ExecStart=/home/fastapi/fatigue_ml_prod/venv/bin/gunicorn \
           --workers 2 \
           -k uvicorn.workers.UvicornWorker \
           --bind unix:/run/fastapi.sock \
-          main:app
+          app.main:app
 Restart=on-failure
 RestartSec=5s
 
