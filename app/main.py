@@ -18,6 +18,8 @@ origins = [
     "http://localhost:3000",
     "https://musicstudy.uk",
     "https://www.musicstudy.uk",
+    "https://sampletrek.com",
+    "https://edi.sampletrek.com",
 ]
 
 app.add_middleware(
