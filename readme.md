@@ -168,22 +168,22 @@ Follow these steps to configure the production server:
 1. **Build the Docker image**
 
     ```bash
-    docker build -t shaunchuah/fatigue_ml_prod .
+    sudo docker build -t fatigue_ml_prod .
   
     ```
 
 2. **Run the Docker container**
 
     ```bash
-    docker run -d -p 8080:8080 --name fatigue_ml_container --restart always fatigue_ml_prod
+    sudo docker run -d -p 8080:8080 --name fatigue_ml_container --restart always fatigue_ml_prod
     ```
 
 3. **Updating the Docker container**
 
     ```bash
-    docker stop fatigue_ml_container
-    docker rm fatigue_ml_container
-    docker run -d -p 8080:8080 shaunchuah/fatigue_ml_prod --name fatigue_ml_container --restart always
+    sudo docker stop fatigue_ml_container
+    sudo docker rm fatigue_ml_container
+    sudo docker run -d -p 8080:8080 shaunchuah/fatigue_ml_prod --name fatigue_ml_container --restart always
     ```
 
 ## Author
