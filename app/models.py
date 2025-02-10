@@ -6,6 +6,9 @@ from pydantic.fields import Field
 
 
 class Input(BaseModel):
+    has_active_symptoms: int = Field(
+        ge=0, le=1, description="Has symptoms of active IBD, 0 or 1"
+    )
     age: int = Field(ge=0, le=200, description="Current age")
     sex: int = Field(ge=0, le=1, description="1 is male, 0 is female")
     height: float = Field(ge=0, le=300, description="Height in cm")

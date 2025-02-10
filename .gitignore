@@ -4,3 +4,4 @@ venv/
 __pycache__
 source_model/shap_explainer.pkl
 .pytest_cache/
+*shap_explainer*

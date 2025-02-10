@@ -15,8 +15,8 @@ matplotlib.use("agg")
 
 
 def load_ml_resources():
-    model = keras.saving.load_model("source_model/fatigue_model.keras")
-    scaler = load("source_model/scaler.pkl")
+    model = keras.saving.load_model("source_model/fatigue_model_2025-02-10.keras")
+    scaler = load("source_model/scaler_2025-02-10.pkl")
     return model, scaler
 
 
@@ -25,7 +25,7 @@ def prepare_dataframe(formatted_data: dict, scaler) -> pd.DataFrame:
     Takes in formatted data, loads it in the correct structure
     and scales the numerical features using standard scaler
     """
-    df = pd.read_csv("source_model/X_train.csv")
+    df = pd.read_csv("source_model/X_test.csv")
     df = df.iloc[0:0]
     df = pd.DataFrame.from_records([formatted_data])
     df[NUMERICAL_FEATURES] = scaler.transform(df[NUMERICAL_FEATURES])
@@ -38,7 +38,7 @@ def generate_force_plot(df, scaler) -> str:
     Returns a base64 encoded image of the force plot
     """
     # Inverse transform for clearer visualization
-    with open("source_model/shap_explainer.pkl", "rb") as f:
+    with open("source_model/shap_explainer_2025-02-10.pkl", "rb") as f:
         explainer = pickle.load(f)
     shap_values = explainer.shap_values(df.iloc[0])
     # Very important

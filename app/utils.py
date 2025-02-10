@@ -119,6 +119,7 @@ def format_input_data(input: Input) -> dict:
 
     # Format the data
     formatted_data_dictionary = {
+        "has_active_symptoms": input.has_active_symptoms,
         "age": input.age,
         "sex": input.sex,
         "height": input.height,
