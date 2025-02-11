@@ -7,6 +7,7 @@ from sqlmodel import Field, SQLModel
 
 
 class Input(BaseModel):
+    cucq_5: int = Field(ge=0, le=14)
     has_active_symptoms: int = Field(
         ge=0, le=1, description="Has symptoms of active IBD, 0 or 1"
     )
@@ -126,6 +127,9 @@ class InputData(SQLModel, table=True):
     season_winter: int
     predicted_probability: float
     predicted_class: str
+    correct_class: str
+    cucq_5: int
+    correct_prediction: bool
     created_at: datetime.datetime = Field(
         default=datetime.datetime.now(datetime.timezone.utc)
     )

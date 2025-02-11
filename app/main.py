@@ -1,3 +1,5 @@
+import time
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, SQLModel, create_engine, func, select
@@ -58,9 +60,16 @@ def analytics():
     with Session(engine) as session:
         # get count
         count = session.exec(select(func.count(InputData.id))).all()
+        statement = select(InputData.id).where(InputData.correct_prediction)
+        correct_prediction_count = session.exec(statement)
+
+    correct_prediction_percentage = round(
+        len(correct_prediction_count.all()) / count[0] * 100, 2
+    )
 
     return {
         "API access count": count[0],
+        "Correct prediction percentage": correct_prediction_percentage,
     }
 
 
@@ -70,9 +79,9 @@ model, scaler = load_ml_resources()
 @app.post("/predict")
 def predict_fatigue(input: Input):
     try:
-        import time
-
         timings = {}
+        cucq_5 = input.cucq_5
+        correct_class = "no_fatigue" if cucq_5 < 10 else "fatigue"
 
         start = time.perf_counter()
         formatted_data_dictionary = format_input_data(input)
@@ -90,6 +99,7 @@ def predict_fatigue(input: Input):
         predicted_probability = model.predict(df)[0][0].item()
         timings["model_prediction"] = round((time.perf_counter() - start) * 1000, 3)
         predicted_class = "fatigue" if predicted_probability > 0.5 else "no_fatigue"
+        correct_prediction = predicted_class == correct_class
 
         # Store formatted_data_dictionary in database
         formatted_data_db_storage = format_for_database(formatted_data_dictionary)
@@ -97,6 +107,9 @@ def predict_fatigue(input: Input):
             **formatted_data_db_storage,
             predicted_class=predicted_class,
             predicted_probability=predicted_probability,
+            correct_class=correct_class,
+            cucq_5=cucq_5,
+            correct_prediction=correct_prediction,
         )
         session = Session(engine)
         session.add(input_data)
@@ -111,7 +124,10 @@ def predict_fatigue(input: Input):
         return {
             "execution_time_ms": timings,
             "predicted_class": predicted_class,
+            "correct_class": correct_class,
+            "correct_prediction": correct_prediction,
             "predicted_probability": predicted_probability,
+            "cucq_5": cucq_5,
             "prediction_data": formatted_data_dictionary,
             "force_plot": base64_image,
         }
