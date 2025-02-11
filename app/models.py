@@ -1,8 +1,9 @@
 import datetime
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import BaseModel
 from pydantic.fields import Field
+from sqlmodel import Field, SQLModel
 
 
 class Input(BaseModel):
@@ -54,3 +55,77 @@ class Input(BaseModel):
     montreal_uc_extent: Literal["e1", "e2", "e3", "0"]
     montreal_uc_severity: Literal["s0", "s1", "s2", "s3", "0"]
     is_smoker: Literal["Ex-smoker", "Non-smoker", "Smoker"]
+
+
+class InputData(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    has_active_symptoms: int
+    age: int
+    sex: int
+    height: float
+    weight: float
+    bmi: float
+    age_at_diagnosis: int
+    montreal_upper_gi: int
+    montreal_perianal: int
+    albumin: float
+    crp: float
+    haemoglobin: float
+    red_cell_count: float
+    white_cell_count: float
+    neutrophils: float
+    lymphocytes: float
+    monocytes: float
+    eosinophils: float
+    basophils: float
+    platelets: float
+    urea: float
+    creatinine: float
+    sodium: float
+    potassium: float
+    calprotectin: float
+    sampling_steroids: int
+    sampling_abx: int
+    sampling_asa: int
+    sampling_aza: int
+    sampling_mp: int
+    sampling_ifx: int
+    sampling_ada: int
+    sampling_vedo: int
+    sampling_uste: int
+    sampling_tofa: int
+    sampling_mtx: int
+    sampling_ciclosporin: int
+    sampling_filgo: int
+    sampling_upa: int
+    sampling_risa: int
+    disease_duration_weeks: float
+    diagnosis_year: int
+    study_group_name_CD: int
+    study_group_name_IBDU: int
+    study_group_name_UC: int
+    montreal_cd_location_L1_Ileal: int
+    montreal_cd_location_L2_Colonic: int
+    montreal_cd_location_L3_Ileocolonic: int
+    montreal_cd_behaviour_B1_Non_stricturing_non_penetrating: int
+    montreal_cd_behaviour_B2_Stricturing: int
+    montreal_cd_behaviour_B3_Penetrating: int
+    montreal_uc_extent_E1_Proctitis: int
+    montreal_uc_extent_E2_Left_sided: int
+    montreal_uc_extent_E3_Extensive: int
+    montreal_uc_severity_S0_Remission: int
+    montreal_uc_severity_S1_Mild: int
+    montreal_uc_severity_S2_Moderate: int
+    montreal_uc_severity_S3_Severe: int
+    is_smoker_Ex_smoker: int
+    is_smoker_Non_smoker: int
+    is_smoker_Smoker: int
+    season_autumn: int
+    season_spring: int
+    season_summer: int
+    season_winter: int
+    predicted_probability: float
+    predicted_class: str
+    created_at: datetime.datetime = Field(
+        default=datetime.datetime.now(datetime.timezone.utc)
+    )

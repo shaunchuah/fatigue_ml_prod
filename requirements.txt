@@ -6,3 +6,6 @@ tensorflow==2.18.0
 matplotlib==3.10.0
 scikit-learn==1.5.2
 gunicorn==23.0.0
+sqlmodel==0.0.22
+pydantic-settings==2.7.1
+python-dotenv==1.0.1

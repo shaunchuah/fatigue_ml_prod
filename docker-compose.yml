@@ -1,0 +1,13 @@
+services:
+    fastapi:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+            - "8000:8080"
+        volumes:
+            - fastapi_data:/data
+
+volumes:
+    fastapi_data:

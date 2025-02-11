@@ -187,3 +187,59 @@ def format_input_data(input: Input) -> dict:
     }
 
     return formatted_data_dictionary
+
+
+def format_for_database(formatted_data_dictionary: dict) -> dict:
+    """
+    Takes formatted data dictionary and formats it for database storage.
+    """
+    # rename key for database storage
+    formatted_data_dictionary["montreal_cd_location_L1_Ileal"] = (
+        formatted_data_dictionary.pop("montreal_cd_location_L1 Ileal")
+    )
+    formatted_data_dictionary["montreal_cd_location_L2_Colonic"] = (
+        formatted_data_dictionary.pop("montreal_cd_location_L2 Colonic")
+    )
+    formatted_data_dictionary["montreal_cd_location_L3_Ileocolonic"] = (
+        formatted_data_dictionary.pop("montreal_cd_location_L3 Ileocolonic")
+    )
+    formatted_data_dictionary[
+        "montreal_cd_behaviour_B1_Non_stricturing_non_penetrating"
+    ] = formatted_data_dictionary.pop(
+        "montreal_cd_behaviour_B1 Non-stricturing, non-penetrating"
+    )
+    formatted_data_dictionary["montreal_cd_behaviour_B2_Stricturing"] = (
+        formatted_data_dictionary.pop("montreal_cd_behaviour_B2 Stricturing")
+    )
+    formatted_data_dictionary["montreal_cd_behaviour_B3_Penetrating"] = (
+        formatted_data_dictionary.pop("montreal_cd_behaviour_B3 Penetrating")
+    )
+    formatted_data_dictionary["montreal_uc_extent_E1_Proctitis"] = (
+        formatted_data_dictionary.pop("montreal_uc_extent_E1 Proctitis")
+    )
+    formatted_data_dictionary["montreal_uc_extent_E2_Left_sided"] = (
+        formatted_data_dictionary.pop("montreal_uc_extent_E2 Left-sided")
+    )
+    formatted_data_dictionary["montreal_uc_extent_E3_Extensive"] = (
+        formatted_data_dictionary.pop("montreal_uc_extent_E3 Extensive")
+    )
+    formatted_data_dictionary["montreal_uc_severity_S0_Remission"] = (
+        formatted_data_dictionary.pop("montreal_uc_severity_S0 Remission")
+    )
+    formatted_data_dictionary["montreal_uc_severity_S1_Mild"] = (
+        formatted_data_dictionary.pop("montreal_uc_severity_S1 Mild")
+    )
+    formatted_data_dictionary["montreal_uc_severity_S2_Moderate"] = (
+        formatted_data_dictionary.pop("montreal_uc_severity_S2 Moderate")
+    )
+    formatted_data_dictionary["montreal_uc_severity_S3_Severe"] = (
+        formatted_data_dictionary.pop("montreal_uc_severity_S3 Severe")
+    )
+    formatted_data_dictionary["is_smoker_Ex_smoker"] = formatted_data_dictionary.pop(
+        "is_smoker_Ex-smoker"
+    )
+    formatted_data_dictionary["is_smoker_Non_smoker"] = formatted_data_dictionary.pop(
+        "is_smoker_Non-smoker"
+    )
+
+    return formatted_data_dictionary
